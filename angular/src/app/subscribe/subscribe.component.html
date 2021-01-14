@@ -1,0 +1,36 @@
+{{myEmail}}
+<form id="subscribeForm" (submit)="findFriends($event)">
+  <label for="myEmail"><b>My email</b></label>
+  <input
+    type="text"
+    [(ngModel)]="myEmail"
+    placeholder="My email"
+    name="myEmail"
+    id="myEmail"
+    required
+  />
+  <button type="submit">Search friends</button>
+  <button type="button"(click)="Subscribing($event)">Subscribe</button>
+  <button type="button"(click)="Blocking($event)">Block</button>
+  <table id="friendList">
+    <tr>
+        <th> Friend List</th>
+    </tr>
+    <tr>
+        <td>No.</td>
+        <td>Friend</td>
+        <td>Select</td>
+    </tr>
+    <tr *ngFor="let friend of friendList; let Index = index">
+        <td>{{ Index + 1 }}</td>
+        <td>{{ friend.friendEmail }}</td>
+        <td><input type="checkbox" 
+          name={{friend.friendEmail}} 
+          [value]="friend.friendEmail"
+          (change)="getCheckedFriends($event,friend.friendEmail)" ></td>
+    </tr>
+</table>
+
+</form>
+
+

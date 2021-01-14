@@ -1,0 +1,29 @@
+<form (submit)="searchCommonFriends($event)">
+
+    <label for="myEmail"><b>My email</b></label>
+    <input type="text" placeholder="My email" [(ngModel)]="searchMyEmail" name="searchMyEmail" id= "searchMyEmail" required>
+    
+    <label for="friendEmail"><b>Friend's email</b></label>
+    <input type="text" placeholder="Friend's email" [(ngModel)]="searchFriendEmail" name="searchFriendEmail" id= "searchFriendEmail" required>
+    
+
+    <button type="submit">Common friends</button>
+
+    <table id="commonFriends">
+        <tr>
+            <th> Common Friends</th>
+        </tr>
+        <tr>
+            <td>No.</td>
+            <td>Friend</td>
+        </tr>
+        <tr *ngFor="let friend of commonFriends; let Index = index">
+            <td>{{ Index + 1 }}</td>
+            <td>{{ friend.friendEmail }}</td>
+        </tr>
+    </table>
+    </form>
+    
+    {{searchMyEmail}}
+    {{searchFriendEmail}}
+    

@@ -1,0 +1,22 @@
+<form (submit)="searchConnectedFriends($event)">
+    <label for="myEmail"><b>My email</b></label>
+    <input type="email" placeholder="My email" [(ngModel)]="connectMyEmail" name="connectMyEmail" id= "connectMyEmail" required>
+    
+    <button type="submit">List Friends with Updates </button>
+
+    <table id="connectedFriends">
+        <tr>
+            <th> Common Friends</th>
+        </tr>
+        <tr>
+            <td>No.</td>
+            <td>Friend</td>
+        </tr>
+        <tr *ngFor="let friend of connectedFriends; let Index = index">
+            <td>{{ Index + 1 }}</td>
+            <td>{{ friend.friendEmail }}</td>
+        </tr>
+    </table>
+
+</form>
+{{connectMyEmail}}

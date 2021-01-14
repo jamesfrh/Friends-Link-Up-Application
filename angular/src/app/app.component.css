@@ -1,0 +1,16 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+a:hover {
+    color: grey;
+}
+
+.fill {
+  flex: 1 1 auto;
+}
+
+.navbar {
+  justify-content: space-between;
+}
+

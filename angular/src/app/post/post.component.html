@@ -1,0 +1,41 @@
+<form (submit)="sendPost($event)">
+
+<label for="myEmail"><b>My email</b></label>
+<input type="text" placeholder="My email" [(ngModel)]="postMyEmail" name="postMyEmail" id= "myPostEmail" required>
+<br>
+
+<label for="friendEmail"><b>Friend's email</b></label>
+<input type="text" placeholder="Friend's email" [(ngModel)]="postFriendEmail" name="postFriendEmail" id= "friendPostEmail" required>
+<br>
+
+<textarea [(ngModel)]="newPost" id="newPost" name="post" rows="4" cols="40">
+    </textarea>    <br>
+
+<button type="submit">Post update</button>
+</form>
+
+{{postMyEmail}}
+{{postFriendEmail}}
+{{newPost}}
+
+
+<form #userForm="ngForm" class="example-container" (ngSubmit)="sendPost(userForm.value)">
+    <mat-form-field appearance="fill">
+      <mat-label >My email</mat-label>
+      <input matInput required ngModel name="postMyEmail">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+        <mat-label>Friend email</mat-label>
+        <input matInput required ngModel name="postFriendEmail">
+      </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>New Post</mat-label>
+      <textarea matInput ngModel name="newPost"></textarea>
+    </mat-form-field>
+    <br>
+    <button type="submit">Post update</button>
+    {{userForm.value | json}}
+
+</form>
