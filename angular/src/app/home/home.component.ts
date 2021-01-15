@@ -16,23 +16,36 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  linkMyEmail =''
+  linkFriendEmail=''
   linkUpUsers(event: { preventDefault: () => void; target: any; }) {
     event.preventDefault()
     const errors = []
-    const target = event.target
-    const myEmail = target.querySelector('#linkMyEmail').value
-    const friendEmail = target.querySelector('#linkFriendEmail').value
+    const myEmail = this.linkMyEmail
+    const friendEmail = this.linkFriendEmail
+
+    if(!this.validateEmail(myEmail)){
+      alert('Error: My E-mail is invalid')
+      return
+    }
+    if(!this.validateEmail(friendEmail)){
+      alert('Error: Friend E-mail is invalid')
+      return
+    }
 
     if(errors.length === 0){
       this.link.linkUpUsers(myEmail, friendEmail).subscribe(data => {
         console.log(data)
-        alert('Success')
+        alert(JSON.stringify(data))
       })
 
     }
 
     console.log(myEmail, friendEmail)
   }
+  validateEmail(email: any) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
 }

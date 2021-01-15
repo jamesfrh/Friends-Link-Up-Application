@@ -1,36 +1,131 @@
-{{myEmail}}
-<form id="subscribeForm" (submit)="findFriends($event)">
-  <label for="myEmail"><b>My email</b></label>
-  <input
-    type="text"
-    [(ngModel)]="myEmail"
-    placeholder="My email"
-    name="myEmail"
-    id="myEmail"
-    required
-  />
-  <button type="submit">Search friends</button>
-  <button type="button"(click)="Subscribing($event)">Subscribe</button>
-  <button type="button"(click)="Blocking($event)">Block</button>
-  <table id="friendList">
-    <tr>
-        <th> Friend List</th>
-    </tr>
-    <tr>
-        <td>No.</td>
-        <td>Friend</td>
-        <td>Select</td>
-    </tr>
-    <tr *ngFor="let friend of friendList; let Index = index">
+<style>
+  input[type=email],
+  select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  button[type=submit] {
+    width: 20%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 40px;
+    margin: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+
+  div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+
+  #friendList {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  #friendList td,
+  #friendList th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  #friendList tr:nth-child(even) {
+    background-color: #a39f9fc2;
+  }
+
+  #friendList tr:hover {
+    background-color: #858282c2;
+  }
+
+  #friendList th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #541b7a;
+    color: white;
+  }
+
+  .buttonNegative {
+    width: 100%;
+    color: white;
+    padding: 0px 0px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .buttonOn {
+    width: 10%;
+    background-color: #3fdf0e;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+  }
+
+  .buttonOn:hover {
+    background-color: #38c90c;
+  }
+  .buttonOff {
+    width: 10%;
+    background-color: #fc4f1a;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+  }
+
+  .buttonOff:hover {
+    background-color: #e43c09;
+  }
+</style>
+
+
+<div>
+  <form id="subscribeForm" (submit)="findFriends($event)">
+    <label for="myEmail">My email</label>
+    <input type="email" [(ngModel)]="myEmail" placeholder="Enter your email" name="myEmail" id="myEmail" required />
+    <button type="submit">Search friends</button>
+    <button type="button" class="buttonOn" (click)="Unblocking($event)">Unblock</button>
+    <button type="button" class="buttonOff" (click)="Blocking($event)">Block</button>
+
+    <button type="button" class="buttonOn" (click)="Subscribing($event)">Subscribe</button>
+    <button type="button" class="buttonOff" (click)="Unsubscribing($event)">Unsubscribe</button>
+
+
+    <table id="friendList">
+      <tr>
+        <th>No.</th>
+        <th>Friend</th>
+        <th>Select</th>
+      </tr>
+      <tr *ngFor="let friend of friendList; let Index = index">
         <td>{{ Index + 1 }}</td>
         <td>{{ friend.friendEmail }}</td>
-        <td><input type="checkbox" 
-          name={{friend.friendEmail}} 
-          [value]="friend.friendEmail"
-          (change)="getCheckedFriends($event,friend.friendEmail)" ></td>
-    </tr>
-</table>
+        <td><input type="checkbox" name={{friend.friendEmail}} [value]="friend.friendEmail"
+            (change)="getCheckedFriends($event,friend.friendEmail)"></td>
+      </tr>
+    </table>
 
-</form>
-
-
+  </form>
+</div>

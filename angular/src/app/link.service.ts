@@ -46,11 +46,22 @@ export class LinkService {
       subscriberList,
       myEmail
     })
-
+  }
+  unsubscribeFriends(subscriberList: any, myEmail:string){
+    return this.http.patch('/api/unsubscribing', {
+      subscriberList,
+      myEmail
+    })
   }
 
   blockingFriends(subscriberList:any,myEmail:string){
     return this.http.patch('/api/blocking', {
+      subscriberList,
+      myEmail
+    })
+  }
+  unblockingFriends(subscriberList:any,myEmail:string){
+    return this.http.patch('/api/unblocking', {
       subscriberList,
       myEmail
     })

@@ -59,10 +59,26 @@ export class SubscribeComponent implements OnInit {
       })
 
   }
+  Unsubscribing(event: any){
+    event.preventDefault()
+    console.log('hitt unsubscribe buttton')
+    this.link.unsubscribeFriends(this.selectedFriends, this.myEmail).subscribe(data => {
+      alert(JSON.stringify(data))
+      })
+
+  }
   Blocking(event: any){
     event.preventDefault()
     console.log('hitt block buttton')
     this.link.blockingFriends(this.selectedFriends, this.myEmail).subscribe(data => {
+      alert(JSON.stringify(data))
+      })
+
+  }
+  Unblocking(event: any){
+    event.preventDefault()
+    console.log('hitt unblock buttton')
+    this.link.unblockingFriends(this.selectedFriends, this.myEmail).subscribe(data => {
       alert(JSON.stringify(data))
       })
 

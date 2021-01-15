@@ -1,29 +1,88 @@
-<form (submit)="searchCommonFriends($event)">
+<style>
+    input[type=email],
+    select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
 
-    <label for="myEmail"><b>My email</b></label>
-    <input type="text" placeholder="My email" [(ngModel)]="searchMyEmail" name="searchMyEmail" id= "searchMyEmail" required>
-    
-    <label for="friendEmail"><b>Friend's email</b></label>
-    <input type="text" placeholder="Friend's email" [(ngModel)]="searchFriendEmail" name="searchFriendEmail" id= "searchFriendEmail" required>
-    
+    button[type=submit] {
+        width: 20%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
 
-    <button type="submit">Common friends</button>
+    button[type=submit]:hover {
+        background-color: #45a049;
+    }
 
-    <table id="commonFriends">
-        <tr>
-            <th> Common Friends</th>
-        </tr>
-        <tr>
-            <td>No.</td>
-            <td>Friend</td>
-        </tr>
-        <tr *ngFor="let friend of commonFriends; let Index = index">
-            <td>{{ Index + 1 }}</td>
-            <td>{{ friend.friendEmail }}</td>
-        </tr>
-    </table>
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    #commonFriends {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #commonFriends td,
+    #commonFriends th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #commonFriends tr:nth-child(even) {
+        background-color: #a39f9fc2;
+    }
+
+    #commonFriends tr:hover {
+        background-color: #858282c2;
+    }
+
+    #commonFriends th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #541b7a;
+        color: white;
+    }
+</style>
+
+<div>
+    <form (submit)="searchCommonFriends($event)">
+        <label for="myEmail">My email</label>
+        <input type="email" placeholder="Enter your email" [(ngModel)]="searchMyEmail" name="searchMyEmail"
+            id="searchMyEmail" required>
+
+        <label for="friendEmail">Friend's email</label>
+        <input type="email" placeholder="Enter friend's email" [(ngModel)]="searchFriendEmail" name="searchFriendEmail"
+            id="searchFriendEmail" required>
+
+
+        <button type="submit">Search common friends</button>
+
+        <table id="commonFriends">
+
+            <tr>
+                <th>No.</th>
+                <th>Friend</th>
+            </tr>
+            <tr *ngFor="let friend of commonFriends; let Index = index">
+                <td>{{ Index + 1 }}</td>
+                <td>{{ friend.friendEmail }}</td>
+            </tr>
+        </table>
     </form>
-    
-    {{searchMyEmail}}
-    {{searchFriendEmail}}
-    
+</div>

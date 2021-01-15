@@ -1,12 +1,60 @@
+<style>
+    input[type=email],
+    select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
 
-<form (submit)="linkUpUsers($event)">
-    <label for="myEmail"><b>My email</b></label>
-    <input type="text" placeholder="My email" name="myEmail" id="linkMyEmail" required>
+    button[type=submit] {
+        width: 20%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
 
-    <label for="friendEmail"><b>Friend's email</b></label>
-    <input type="text" placeholder="Friend's email" name="friendEmail" id="linkFriendEmail" required>
+    button[type=submit]:hover {
+        background-color: #45a049;
+    }
 
-    <button type="submit">Link up</button>
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+</style>
 
-</form>
+<div>
+    <form (submit)="linkUpUsers($event)">
+        <label for="myEmail">My Email</label>
+        <input type="email" [(ngModel)]="linkMyEmail" placeholder="Enter your email" name="myEmail" id="linkMyEmail" required>
 
+        <label for="friendEmail"><b></b>Friend's Email</label>
+        <input type="email" [(ngModel)]="linkFriendEmail" placeholder="Enter your friend's email" name="friendEmail"
+            id="linkFriendEmail" required>
+
+        <button type="submit">Link up</button>
+    </form>
+</div>
+
+
+<!-- </form>
+
+<label for="myEmail"><b>My email</b></label>
+<input type="email" #testemail="ngModel" placeholder="My email" name="myEmail" id="linkMyEmail" email required>
+<div *ngIf="!testemail.valid">Email is wrong</div>
+
+<label for="friendEmail"><b>Friend's email</b></label>
+<input type="email" placeholder="Friend's email" name="friendEmail" id="linkFriendEmail" email required>
+
+<button type="submit">Link up</button>
+
+</form> -->

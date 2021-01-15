@@ -36,4 +36,6 @@ export class UpdateComponent implements OnInit {
     }
   }
 
+  displayedColumns: string[] = ['position', 'friend'];
+
 }

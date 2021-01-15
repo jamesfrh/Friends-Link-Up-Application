@@ -19,21 +19,35 @@ mongoose.connect('mongodb+srv://jamesfrh:jamesfrh@friendcluster.8g5vo.mongodb.ne
 
 
 //link up with friends
-app.post('/api/link', (req, res) => {
-    const relationship = new FriendListSchema({
-        myEmail: req.body.myEmail,
-        friendEmail: req.body.friendEmail,
-        subscribed: false,
-        blocked: false
-    });
+app.post('/api/link', async(req, res) => {
+    try{
+        const isExist = await FriendListSchema.exists({$and:[{myEmail:req.body.myEmail},{friendEmail:req.body.friendEmail}]})
+        if(isExist){
+            res.json({message: "Already linked up with friend!"});
+        }
+        else{
+            const relationship = new FriendListSchema({
+                myEmail: req.body.myEmail,
+                friendEmail: req.body.friendEmail,
+                subscribed: false,
+                blocked: false
+            });
+        
+            relationship.save()
+            .then(data => {
+                res.json({message: "Successfully linked up"});
+            })
+            .catch(error => {
+                res.json({message: "error"});
+            })
 
-    relationship.save()
-    .then(data => {
-        res.json(data);
-    })
-    .catch(error => {
-        res.json({message: error});
-    })
+        }
+
+    }
+    catch(err){
+        res.json({message: err})
+    }
+
 })
 
 //make a new post to friends
@@ -128,16 +142,28 @@ app.patch('/api/subscribing', async(req, res) => {
     const myEmail = req.body.myEmail
     try{
         for(const toSubscribe in subscriberList){
-            const booleanValue = await (FriendListSchema.findOne(
-                {$and:[{myEmail:myEmail},{friendEmail:subscriberList[toSubscribe]}]}).select('subscribed -_id'))
-            console.log(booleanValue)
-
             const updated = await FriendListSchema.updateOne(
                     {$and:[{myEmail:myEmail},{friendEmail:subscriberList[toSubscribe]}]}, 
-                    {$set: {subscribed: !booleanValue.subscribed}})
+                    {$set: {subscribed: true}})
             console.log(updated)
         }
-        res.json({message: "Request Successful"})
+        res.json({message: "Friend successful subscribed"})
+    }
+    catch{
+        res.json({message: err})
+    }
+})
+app.patch('/api/unsubscribing', async(req, res) => {
+    const subscriberList = req.body.subscriberList
+    const myEmail = req.body.myEmail
+    try{
+        for(const toSubscribe in subscriberList){
+            const updated = await FriendListSchema.updateOne(
+                    {$and:[{myEmail:myEmail},{friendEmail:subscriberList[toSubscribe]}]}, 
+                    {$set: {subscribed: false}})
+            console.log(updated)
+        }
+        res.json({message: "Friend successful unsubscribed"})
     }
     catch{
         res.json({message: err})
@@ -155,10 +181,28 @@ app.patch('/api/blocking', async(req, res) => {
 
             const updated = await FriendListSchema.updateOne(
                 {$and:[{myEmail:myEmail},{friendEmail:blockingList[toBlock]}]}, 
-                {$set: {blocked: !booleanValue.blocked}})
+                {$set: {blocked: true}})
             //console.log(updated)
         }
-        res.json({message: "Request Successful"})
+        res.json({message: "Friends successful blocked"})
+    }
+    catch(err){
+        res.json({message: err})
+    }
+})
+
+app.patch('/api/unblocking', async(req, res) => {
+    const blockingList = req.body.subscriberList
+    const myEmail = req.body.myEmail
+    try{
+        for(const toBlock in blockingList){
+
+            const updated = await FriendListSchema.updateOne(
+                {$and:[{myEmail:myEmail},{friendEmail:blockingList[toBlock]}]}, 
+                {$set: {blocked: false}})
+            //console.log(updated)
+        }
+        res.json({message: "Friends successful unblocked"})
     }
     catch(err){
         res.json({message: err})
